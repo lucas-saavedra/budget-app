@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->integer('user_id');
             $table->integer('parent_category')->nullable();
-            $table->string('description');
-            $table->enum('type', ['Income', 'Expense', 'Transfer', 'Adjustment']);
+            $table->string('description')->nullable();
+            $table->enum('type', ['income', 'expense', 'transfer', 'adjustment']);
             $table->timestamps();
         });
     }

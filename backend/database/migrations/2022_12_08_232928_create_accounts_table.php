@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 70);
             $table->integer('user_id');
+            $table->float('initial_balance', 0, 0);
             $table->string('currency')->default('ARS');
-            $table->string('description');
-            $table->enum('type', ['cash', 'bank_account', 'credit_card', 'investment', 'e-wallet', 'other']);
+            $table->string('description')->nullable();
+            $table->string('color', 50);
+            $table->enum('type', ['cash', 'bank_account', 'credit_card', 'investment', 'e-wallet', 'savings', 'other']);
             $table->timestamps();
         });
     }

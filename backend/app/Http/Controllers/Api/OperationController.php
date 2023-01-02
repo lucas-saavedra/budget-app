@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Operation;
+use App\Enums\OperationType;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Enum;
 
 class OperationController extends Controller
 {
@@ -35,16 +38,28 @@ class OperationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+
+            'type' => 'sometimes|string|max:255 |',
+            'type' => [new Enum(OperationType::class)],
+            'amount' => 'required|decimal:2',
+            "account_id_from" => 'required|integer',
+            "account_id_to" => 'required|integer',
+            "datetime" => 'datetime'
+
+        ]);
+        if ($validator->fails()) {
+            return  response($validator->errors(), 422);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Operation  $operation
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Operation $operation)
+    public function show($id)
     {
         //
     }
@@ -52,10 +67,10 @@ class OperationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Operation  $operation
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Operation $operation)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +79,10 @@ class OperationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Operation  $operation
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Operation $operation)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +90,10 @@ class OperationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Operation  $operation
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Operation $operation)
+    public function destroy($id)
     {
         //
     }
