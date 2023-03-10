@@ -1,77 +1,71 @@
 <script setup>
+import { Icon } from "@iconify/vue";
+import { Form } from "vee-validate";
 import { ref, onMounted } from "vue";
-import Todos from "../components/Todos.vue";
-import axiosApi from "../service/axiosApi";
-import { useQuery } from "@tanstack/vue-query";
 
-import ColumnTodo from "../components/ColumnTodo.vue";
-import ModalAddTodoForm from "../components/Modals/ModalAddTodoForm.vue";
-import TodoPlaceholder from "../components/TodoPlaceholder.vue";
 
 const isOpen = ref(false);
-const fectTodos = async () => {
-  const token = localStorage.getItem("token");
-  await axiosApi.get("/sanctum/csrf-cookie");
-  const res = await axiosApi.get("api/todos", {
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-  });
-  return res.data.data;
-};
-const { isFetching, data, error } = useQuery({
-  queryKey: ["todos"],
-  queryFn: fectTodos,
-});
+
 </script>
 
 <template>
-  <ModalAddTodoForm v-if="isOpen" @close="isOpen = !isOpen" />
+    <main class="panel">
 
-  <div class="container">
-    <div class="d-flex justify-content-between">
-      <h1 class="display-5 text-center">Todos</h1>
-      <button
-        class="btn btn-light border text-dark mb-3"
-        @click="isOpen = !isOpen"
-        type="button"
-      >
-        Create todo
-        <i class="bi bi-plus-lg"></i>
-      </button>
-    </div>
-    <div
-      class="row"
-      :style="{ minHeight: '250px', width: '100%' }"
-      v-if="!isFetching"
-    >
-      <ColumnTodo label="Pending">
-        <Todos :todos="data.filter((t) => t.status === 'pending')" />
-      </ColumnTodo>
-      <ColumnTodo label="In Progress">
-        <Todos :todos="data.filter((t) => t.status === 'in_progress')" />
-      </ColumnTodo>
-      <ColumnTodo label="Completed">
-        <Todos :todos="data.filter((t) => t.status === 'completed')" />
-      </ColumnTodo>
-    </div>
 
-    <div class="row" :style="{ minHeight: '250px', width: '100%' }" v-else>
-      <ColumnTodo label="Pending">
-        <TodoPlaceholder />
-        <TodoPlaceholder />
-      </ColumnTodo>
-      <ColumnTodo label="In Progress">
-        <TodoPlaceholder />
-        <TodoPlaceholder />
-        <TodoPlaceholder />
-      </ColumnTodo>
-      <ColumnTodo label="Completed">
-        <TodoPlaceholder />
-      </ColumnTodo>
-    </div>
-    
-  </div>
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            <div class="col">
+                <div class="card">
+                    <div class="row d-flex justify-content-between">
+                        <div class="col">
+                            <div class="card-body">
+                                <h5 class="card-title pb-3">Saldo actual</h5>
+                                <p class=" fs-4  card-text">$1.520,258</p>
+                            </div>
+                        </div>
+                        <div class="col p-3 me-3 text-end my-auto">
+                            <button class="bg-primary rounded-circle p-2">
+                                <Icon icon="mdi:bank" width="30" height="30" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="row d-flex justify-content-between">
+                        <div class="col">
+                            <div class="card-body">
+                                <h5 class="card-title pb-3">Ingresos</h5>
+                                <p class=" fs-4  card-text">$1.520,258</p>
+                            </div>
+                        </div>
+                        <div class="col p-3 me-3 text-end my-auto">
+                            <button class="bg-success rounded-circle p-2">
+                                <Icon icon="ic:baseline-arrow-upward" width="30" height="30" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="row d-flex justify-content-between">
+                        <div class="col">
+                            <div class="card-body">
+                                <h5 class="card-title pb-3">Gastos</h5>
+                                <p class=" fs-4  card-text">$1.520,258</p>
+                            </div>
+                        </div>
+                        <div class="col p-3 me-3 text-end my-auto">
+                            <button class="bg-danger rounded-circle  p-2 ">
+                                <Icon icon="ic:baseline-arrow-upward" verticalFlip="true" width="30" height="30" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 </template>
 
 <style scoped></style>

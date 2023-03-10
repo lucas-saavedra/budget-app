@@ -12,6 +12,22 @@ const routes = [
         }
     },
     {
+        path: '/nuevo-registro', name: 'nuevo-registro',
+        component: () => import(/* webpackChunkName: "app" */'../views/pages/nuevo-registro.vue'),
+        meta: {
+            layout: 'app',
+            isRequredAuth: true
+        }
+    },
+    {
+        path: '/cuentas', name: 'cuentas',
+        component: () => import(/* webpackChunkName: "app" */'../views/pages/Accounts.vue'),
+        meta: {
+            layout: 'app',
+            isRequredAuth: true
+        }
+    },
+    {
         path: '/report', name: 'report',
         component: () => import(/* webpackChunkName: "app" */'../views/pages/report.vue'),
         meta: {
@@ -66,7 +82,7 @@ router.beforeEach((to, from) => {
            return { name: 'login', query: { redirect: to.fullPath } }
        } */
 
-    if (to.meta && to.meta.layout && to.meta.layout == 'auth') { // (to.meta && to.meta.layout && to.meta.layout == 'auth') 
+    if (to.meta && to.meta.layout && to.meta.layout == 'auth') { // (to.meta && to.meta.layout && to.meta.layout == 'auth')
         setLayout('auth');
     } else {
         setLayout('app');
