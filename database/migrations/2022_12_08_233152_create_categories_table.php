@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('user_id');
-            $table->integer('parent_category')->nullable();
+            $table->integer('parent_id')->nullable();
             $table->string('description')->nullable();
             $table->enum('type', ['income', 'expense', 'transfer', 'adjustment']);
             $table->timestamps();

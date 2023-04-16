@@ -21,6 +21,15 @@ class AccountController extends Controller
             "data" => $accounts
         ]);
     }
+    public function show($id)
+    {
+        $account = Account::whereBelongsTo(auth()->user())->where('id', $id)->first();
+        return response()->json([
+            "success" => true,
+            "message" => "Account",
+            "data" => $account
+        ]);
+    }
     public function store(Request $request)
     {
         $validation = $request->validate([
@@ -29,7 +38,7 @@ class AccountController extends Controller
             'type' => [new Enum(AccountType::class)],
             'initial_balance' => 'required|numeric',
             'color' => 'required|string|max:191',
-            'description' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
             'currency' => 'sometimes|string|min:1|max:3',
         ]);
 

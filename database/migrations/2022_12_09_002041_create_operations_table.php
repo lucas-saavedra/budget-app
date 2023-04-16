@@ -16,10 +16,9 @@ return new class extends Migration
         Schema::create('operations', function (Blueprint $table) {
             $table->id();
             $table->integer('account_id_from');
-            $table->integer('account_id_to');
-            $table->dateTime('datetime');
+            $table->integer('account_id_to')->nullable();
             $table->float('amount', 0, 0);
-            $table->enum('type', ['Income', 'Expense', 'Transfer', 'Adjustment']);
+            $table->enum('type', ['income', 'expense', 'transfer', 'adjustment']);
             $table->integer('category_id');
             $table->timestamps();
         });
