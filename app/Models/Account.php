@@ -24,4 +24,12 @@ class Account extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function incomes()
+    {
+        return $this->hasMany(Transaction::class)->where('type', 'income');
+    }
+    public function expenses()
+    {
+        return $this->hasMany(Transaction::class)->where('type', 'expense');
+    }
 }

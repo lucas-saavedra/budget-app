@@ -90,7 +90,6 @@ class AccountController extends Controller
      */
     public function destroy($id)
     {
-
         Account::whereBelongsTo(auth()->user())->where('id', $id)->delete();
         return response()->json([
             "ok" => true,

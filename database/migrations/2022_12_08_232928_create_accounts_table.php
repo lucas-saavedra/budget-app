@@ -17,11 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('name', 70);
             $table->integer('user_id');
-            $table->float('initial_balance', 0, 0);
+            $table->decimal('initial_balance', 8, 2);
             $table->string('currency')->default('ARS');
             $table->string('description')->nullable();
             $table->string('color', 50);
             $table->enum('type', ['cash', 'bank_account', 'credit_card', 'investment', 'e-wallet', 'savings', 'other']);
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

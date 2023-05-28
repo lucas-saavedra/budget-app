@@ -5,27 +5,15 @@
         <!--  END NAVBAR  -->
 
         <!--  BEGIN MAIN CONTAINER  -->
-        <div
-            class="main-container"
-            id="container"
-            :class="[
-                !is_show_sidebar ? 'sidebar-closed sbar-open' : '',
-                menu_style === 'collapsible-vertical'
-                    ? 'collapsible-vertical-mobile'
-                    : '',
-            ]"
-        >
+        <div class="main-container" id="container" :class="[
+            !is_show_sidebar ? 'sidebar-closed sbar-open' : '',
+            menu_style === 'collapsible-vertical'
+                ? 'collapsible-vertical-mobile'
+                : '',
+        ]">
             <!--  BEGIN OVERLAY  -->
-            <div
-                class="overlay"
-                :class="{ show: !is_show_sidebar }"
-                @click="toggleSideBar(!is_show_sidebar)"
-            ></div>
-            <div
-                class="search-overlay"
-                :class="{ show: is_show_search }"
-                @click="toggleSearch(!is_show_search)"
-            ></div>
+            <div class="overlay" :class="{ show: !is_show_sidebar }" @click="toggleSideBar(!is_show_sidebar)"></div>
+            <div class="search-overlay" :class="{ show: is_show_search }" @click="toggleSearch(!is_show_search)"></div>
             <!-- END OVERLAY -->
 
             <!--  BEGIN SIDEBAR  -->
@@ -36,9 +24,9 @@
             <div id="content" class="main-content">
                 <router-view v-slot="{ Component }">
                     <Suspense>
-                        <keep-alive>
-                            <component :is="Component" />
-                        </keep-alive>
+
+                        <component :is="Component" />
+
                         <template #fallback>Cargando...</template>
                     </Suspense>
                 </router-view>

@@ -13,14 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('operations', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->integer('account_id_from');
-            $table->integer('account_id_to')->nullable();
+            $table->integer('account_id');
             $table->float('amount', 0, 0);
-            $table->enum('type', ['income', 'expense', 'transfer', 'adjustment']);
+            $table->enum('type', ['income', 'expense', 'adjustment']);
             $table->integer('category_id');
+            $table->timestamp('datetime');
             $table->timestamps();
+
+            $table->foreign('account_id')->references('id')->on('accounts')
+                ->onDelete('cascade');
         });
     }
 
@@ -31,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('operations');
+        Schema::dropIfExists('transactions');
     }
 };

@@ -4,110 +4,54 @@
         <nav ref="menu" id="sidebar">
             <div class="shadow-bottom"></div>
 
-            <perfect-scrollbar
-                class="list-unstyled menu-categories"
-                tag="ul"
-                :options="{
-                    wheelSpeed: 0.5,
-                    swipeEasing: !0,
-                    minScrollbarLength: 40,
-                    maxScrollbarLength: 300,
-                    suppressScrollX: true,
-                }"
-            >
+            <perfect-scrollbar class="list-unstyled menu-categories" tag="ul" :options="{
+                wheelSpeed: 0.5,
+                swipeEasing: !0,
+                minScrollbarLength: 40,
+                maxScrollbarLength: 300,
+                suppressScrollX: true,
+            }">
                 <li class="menu">
-                    <a
-                        class="dropdown-toggle"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#inicio"
-                        aria-controls="inicio"
-                        aria-expanded="false"
-                    >
+                    <a class="dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#inicio" aria-controls="inicio"
+                        aria-expanded="false">
                         <div class="">
-                            <Icon
-                                icon="material-symbols:home-outline"
-                                width="30"
-                                height="30"
-                            />
+                            <Icon icon="material-symbols:home-outline" width="30" height="30" />
                             <span>Home</span>
                         </div>
                         <div>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="feather feather-chevron-right"
-                            >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="feather feather-chevron-right">
                                 <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
                         </div>
                     </a>
-                    <ul
-                        id="inicio"
-                        class="collapse submenu list-unstyled"
-                        data-bs-parent="#sidebar"
-                    >
+                    <ul id="inicio" class="collapse submenu list-unstyled" data-bs-parent="#sidebar">
                         <li v-for="opt in homeOptions">
-                            <router-link
-                                as="li"
-                                :to="{ name: opt.name }"
-                                @click="toggleMobileMenu"
-                            >
+                            <router-link as="li" :to="{ name: opt.name }" @click="toggleMobileMenu">
                                 {{ opt.label }}
                             </router-link>
                         </li>
                     </ul>
                 </li>
                 <li class="menu">
-                    <a
-                        class="dropdown-toggle"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#cuentas"
-                        aria-controls="cuentas"
-                        aria-expanded="false"
-                    >
+                    <a class="dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#cuentas" aria-controls="cuentas"
+                        aria-expanded="false">
                         <div class="">
-                            <Icon
-                                icon="mdi:cellphone-message"
-                                width="20"
-                                height="20"
-                            />
+                            <Icon icon="mdi:cellphone-message" width="20" height="20" />
                             <span>Cuenta</span>
                         </div>
                         <div>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="feather feather-chevron-right"
-                            >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="feather feather-chevron-right">
                                 <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
                         </div>
                     </a>
-                    <ul
-                        id="cuentas"
-                        class="collapse submenu list-unstyled"
-                        data-bs-parent="#sidebar"
-                    >
+                    <ul id="cuentas" class="collapse submenu list-unstyled" data-bs-parent="#sidebar">
                         <li v-for="opt in cuentasOpt">
-                            <router-link
-                                as="li"
-                                :to="{ name: opt.name }"
-                                @click="toggleMobileMenu"
-                            >
+                            <router-link as="li" :to="{ name: opt.name }" @click="toggleMobileMenu">
                                 {{ opt.label }}
                             </router-link>
                         </li>

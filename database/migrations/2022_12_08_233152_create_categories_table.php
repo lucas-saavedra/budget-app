@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('user_id');
-            $table->integer('parent_id')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('description')->nullable();
             $table->enum('type', ['income', 'expense', 'transfer', 'adjustment']);
+            $table->foreign('parent_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

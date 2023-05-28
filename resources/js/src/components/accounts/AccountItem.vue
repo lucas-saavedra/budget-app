@@ -14,7 +14,6 @@
 
             </div>
             <div className="card-footer ">
-                <button className='btn btn-info px-3'>Transaction</button>
                 <button className='btn btn-primary'>Edit</button>
                 <button className='btn btn-danger'>Delete</button>
             </div>

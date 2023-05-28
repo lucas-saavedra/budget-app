@@ -11,9 +11,7 @@ import * as bootstrap from 'bootstrap';
 window.bootstrap = bootstrap;
 
 import "bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootswatch/dist/materia/bootstrap.min.css";
-import 'bootstrap-icons/font/bootstrap-icons.css'
+
 //axios
 import axios from 'axios';
 axios.defaults.withCredentials = true;

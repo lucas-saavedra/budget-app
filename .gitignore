@@ -18,3 +18,5 @@ yarn-error.log
 /.idea
 /.vscode
 *.bkp
+*.dtmp
+tengo una tabla de cuenta, que almacena datos de una cuenta financiaera en laravel, y tengo una tabla que se llama operaciones que almacena las operaciones que hago con cada cuenta, que deberia 

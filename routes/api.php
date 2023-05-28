@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ReportsController;
+use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,4 +19,6 @@ Route::group(["middleware" => ["auth:sanctum"]], function () {
     //accounts
     Route::resource('accounts', AccountController::class);
     Route::resource('categories', CategoryController::class);
+    Route::resource('transactions', TransactionController::class);
+    Route::resource('reports', ReportsController::class);
 });
