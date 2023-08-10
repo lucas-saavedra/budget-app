@@ -17,15 +17,32 @@ class TransactionController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+
     public function index()
     {
 
-        $accounts = Account::with('incomes','expenses')->whereBelongsTo(auth()->user())->get();
+        $transactions = Transaction::where('user_id', auth()->user()->id)->get();
+
+        $user_id = auth()->user()->id;
+
+        $totalIncome = Transaction::where('user_id', $user_id)
+            ->where('transaction_type', 'income')
+            ->sum('amount');
+
+        $totalExpense = Transaction::where('user_id', $user_id)
+            ->where('transaction_type', 'expense')
+            ->sum('amount');
 
         return response()->json([
             "status" => true,
-            "message" => "Incomes",
-            "data" => $accounts
+            "message" => "Transactions list.",
+            "data" => [
+                "transactions" => $transactions,
+                "incomes" => (float) $totalIncome,
+                "expenses" => (float)$totalExpense
+            ]
+
         ], 200);
     }
 
@@ -36,25 +53,29 @@ class TransactionController extends Controller
     {
         $validator = Validator::make($request->all(), [
 
-            'type' => 'required|string|max:50',
-            'type' => [new Enum(OperationType::class)],
-            'amount' => 'required|decimal:2',
+            'transaction_type' => 'required|string|max:50',
+            'transaction_type' => [new Enum(OperationType::class)],
+            'amount' => 'required|numeric',
             "account_id_from" => 'required|integer',
-            "account_id_to" => 'required_if:type,transfer|integer',
-            "datetime" => 'required|string'
-
+            "account_id_to" => 'required_if:type,transfer|nullable|integer',
+            "datetime" => 'required|string',
+            "category_id" => 'required|integer',
         ]);
         if ($validator->fails()) {
             return  response($validator->errors(), 422);
         }
-        $validation['user_id'] = auth()->user()->id;
-
-        if ($validation['type'] === 'transfer') {
-            $operation  = Transfer::create($validation);
-        } else {
-            $operation = Transaction::create($validation);
-        }
-
+        $validatedData = $validator->validated();
+        $validatedData['user_id'] = auth()->user()->id;
+        $operation  = Transaction::create($validatedData);
+        //account_id_to
+        $accountId = $request->account_id_from;
+        $account = Account::where('id', $accountId)->first();
+        $totalIncome = $account->incomes->sum('amount');
+        $totalExpense = $account->expenses->sum('amount');
+        $currentBalance = $account->balance + $totalIncome - $totalExpense;
+        // Actualizamos el balance en la cuenta
+        $account->balance = $currentBalance;
+        $account->save();
         return response()->json([
             "success" => true,
             "message" => "Operation success.",

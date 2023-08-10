@@ -20,8 +20,9 @@ class CategoryController extends Controller
     {
         $category = Category::whereBelongsTo(auth()->user())->get();
         return response()->json([
-            "ok" => true,
-            "categories" => $category
+            "success" => true,
+            "message" => "Category list",
+            "data" => $category
         ]);
     }
 
@@ -62,9 +63,9 @@ class CategoryController extends Controller
         $category->save();
 
         return response()->json([
-            "ok" => true,
-            "msg" => "Category successfully created!",
-            "category" => $category
+            "success" => true,
+            "message" => "Category successfully created!",
+            "data" => $category
         ]);
     }
 

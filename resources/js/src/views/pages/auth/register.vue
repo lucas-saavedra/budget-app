@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 import { toast } from "vue3-toastify";
 import * as Yup from "yup";
 
-import CustomInput from "../../../components/CustomInput.vue";
+import CustomInput from "@/components/TextInput.vue";
 
 import useStore from "../../../store/index";
 import axios from "axios";

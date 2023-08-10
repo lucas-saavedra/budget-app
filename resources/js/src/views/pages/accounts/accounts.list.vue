@@ -15,7 +15,7 @@
                     <div class="card h-100">
                         <div className="row d-flex  h-100 align-content-center">
                             <div class="col d-flex justify-content-center">
-                                <router-link :to="{ name: 'nueva-cuenta' }">
+                                <router-link :to="{ name: 'accounts.new' }">
                                     <Icon
                                         icon="material-symbols:add-circle-outline"
                                         role="button"
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <template v-for="account in data">
+                <template v-for="(account, id) in data" :key="id">
                     <AccountItem :account="account" />
                 </template>
             </div>
@@ -37,23 +37,20 @@
 
 <script setup>
 import { Icon } from "@iconify/vue";
-import { useQuery } from "@tanstack/vue-query";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import LayoutCard from "@/components/LayoutCard.vue";
-import AccountItem from "@/components/accounts/AccountItem.vue";
-import axios from "axios";
+import AccountItem from "./AccountItem.vue";
+import { useApi } from "@/hooks/use-api.js";
 
-const { isFetching, error, data } = useQuery(["accounts"], async () =>
-    axios
-        .get("http://127.0.0.1:8000/api/accounts", {
-            headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-        })
-        .then((res) => res.data.data)
-);
-const isOpen = ref(false);
+const { data, error, getData } = useApi();
 
+const fetchData = async () => {
+    error.value = null;
+    await getData("api/accounts"); // Proporciona la URL aquí
+};
+onMounted(async () => {
+    await fetchData();
+});
 </script>
 
 <style lang="scss" scoped></style>

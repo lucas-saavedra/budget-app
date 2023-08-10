@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +14,29 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+    private function createCategories($user_id)
+    {
+        $categories = Config::get('categories');
+        foreach ($categories['income'] as $incomeCategory) {
+            Category::create([
+                'name' => $incomeCategory['name'],
+                'label' => $incomeCategory['label'],
+                'icon' => $incomeCategory['icon'],
+                'user_id' => $user_id, // Cambia esto según tus necesidades
+                'type' => 'income',
+            ]);
+        }
 
+        foreach ($categories['expense'] as $expenseCategory) {
+            Category::create([
+                'name' => $expenseCategory['name'],
+                'label' => $expenseCategory['label'],
+                'icon' => $expenseCategory['icon'],
+                'user_id' => $user_id, // Cambia esto según tus necesidades
+                'type' => 'income',
+            ]);
+        }
+    }
     public function register(Request $request)
     {
 
@@ -31,6 +55,7 @@ class UserController extends Controller
                 'password' => Hash::make($request->password),
             ]);
             $user->save();
+            $this->createCategories($user->id);
             auth()->login($user);
             $token =  $user->createToken("auth_token")->plainTextToken;
             DB::commit();

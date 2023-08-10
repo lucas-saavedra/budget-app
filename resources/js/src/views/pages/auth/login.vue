@@ -3,7 +3,7 @@ import { useForm } from "vee-validate";
 import * as Yup from "yup";
 import { useRouter } from "vue-router";
 
-import CustomInput from "../../../components/CustomInput.vue";
+import CustomInput from "@/components/TextInput.vue";
 import useStore from "../../../store/index";
 import { toast } from "vue3-toastify";
 import axios from "axios";

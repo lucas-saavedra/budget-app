@@ -36,7 +36,7 @@ class AccountController extends Controller
             'name' => 'required|string|max:191',
             'type' => 'required|alpha_num|max:20',
             'type' => [new Enum(AccountType::class)],
-            'initial_balance' => 'required|numeric',
+            'balance' => 'required|numeric',
             'color' => 'required|string|max:191',
             'description' => 'nullable|string|max:255',
             'currency' => 'sometimes|string|min:1|max:3',
@@ -46,7 +46,7 @@ class AccountController extends Controller
         $account = Account::create($validation);
 
         return response()->json([
-            "success" => true,
+            "status" => true,
             "message" => "Account updated successfully.",
             "data" => $account
         ]);
@@ -61,13 +61,14 @@ class AccountController extends Controller
      */
     public function update(Request $request, Account $account)
     {
+        //mostrar el balance NO las transacciones
         $validator = Validator::make($request->all(), [
             'name' => 'sometimes|string|max:255',
             'type' => 'sometimes|string|max:255 |',
             'type' => [new Enum(AccountType::class)],
-            'initial_balance' => 'sometimes|numeric',
+            'balance' => 'sometimes|numeric',
             'color' => 'sometimes|string|max:255',
-            'description' => 'sometimes|string|max:255',
+            'description' => 'nullable|string|max:255',
             'currency' => 'sometimes|string|min:1|max:4',
         ]);
         if ($validator->fails()) {
@@ -76,7 +77,7 @@ class AccountController extends Controller
         $account->update($validator->validated());
 
         return response()->json([
-            "success" => true,
+            "status" => true,
             "message" => "Account updated successfully.",
             "data" => $account
         ]);

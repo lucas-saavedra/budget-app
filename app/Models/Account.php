@@ -12,7 +12,7 @@ class Account extends Model
     protected $table = 'accounts';
     protected $fillable = [
         'name',
-        'initial_balance',
+        'balance',
         'user_id',
         'color',
         'type',
@@ -26,10 +26,10 @@ class Account extends Model
     }
     public function incomes()
     {
-        return $this->hasMany(Transaction::class)->where('type', 'income');
+        return $this->hasMany(Transaction::class, 'account_id_from')->where('transaction_type', 'income');
     }
     public function expenses()
     {
-        return $this->hasMany(Transaction::class)->where('type', 'expense');
+        return $this->hasMany(Transaction::class, 'account_id_from')->where('transaction_type', 'expense');
     }
 }

@@ -1,83 +1,134 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import useStore from '../store/index'
-
+import { createRouter, createWebHistory } from "vue-router";
+import useStore from "../store/index";
 
 const routes = [
     {
-        path: '/', name: 'home',
-        component: () => import(/* webpackChunkName: "app" */'../views/index.vue'),
+        path: "/",
+        name: "home",
+        component: () =>
+            import(/* webpackChunkName: "app" */ "../views/index.vue"),
         meta: {
-            layout: 'app',
-            isRequredAuth: true
-        }
+            layout: "app",
+            isRequredAuth: true,
+        },
     },
     {
-        path: '/nuevo-registro', name: 'nuevo-registro',
-        component: () => import(/* webpackChunkName: "app" */'../views/pages/nuevo-registro.vue'),
+        path: "/transacciones",
+        name: "transaccion.list",
+        component: () =>
+            import(
+                /* webpackChunkName: "app" */ "../views/pages/transactions/trs.list.vue"
+            ),
         meta: {
-            layout: 'app',
-            isRequredAuth: true
-        }
+            layout: "app",
+            isRequredAuth: true,
+        },
     },
     {
-        path: '/cuentas', name: 'cuentas',
-        component: () => import(/* webpackChunkName: "app" */'../views/pages/accounts/home.vue'),
+        path: "/transacciones/nueva",
+        name: "tsr.new",
+        component: () =>
+            import(
+                /* webpackChunkName: "app" */ "../views/pages/transactions/trs.new.vue"
+            ),
         meta: {
-            layout: 'app',
-            isRequredAuth: true
-        }
+            layout: "app",
+            isRequredAuth: true,
+        },
     },
     {
-        path: '/cuentas/nueva', name: 'nueva-cuenta',
-        component: () => import(/* webpackChunkName: "app" */'../views/pages/accounts/new.vue'),
+        path: "/cuentas",
+        name: "accounts.list",
+        component: () =>
+            import(
+                /* webpackChunkName: "app" */ "../views/pages/accounts/accounts.list.vue"
+            ),
         meta: {
-            layout: 'app',
-            isRequredAuth: true
-        }
+            layout: "app",
+            isRequredAuth: true,
+        },
     },
     {
-        path: '/report', name: 'report',
-        component: () => import(/* webpackChunkName: "app" */'../views/pages/report.vue'),
+        path: "/cuentas/nueva",
+        name: "accounts.new",
+        component: () =>
+            import(
+                /* webpackChunkName: "app" */ "../views/pages/accounts/accounts.new.vue"
+            ),
         meta: {
-            layout: 'app',
-            isRequredAuth: true
-        }
+            layout: "app",
+            isRequredAuth: true,
+        },
     },
     {
-        path: '/logout', name: 'logout',
-        component: () => import(/* webpackChunkName: "app" */'../views/pages/auth/logout.vue'),
+        path: "/cuentas/:id/editar",
+        name: "accounts.edit",
+        component: () =>
+            import(
+                /* webpackChunkName: "app" */ "../views/pages/accounts/accounts.edit.vue"
+            ),
         meta: {
-            layout: 'auth',
-            isRequredAuth: true
-        }
+            layout: "app",
+            isRequredAuth: true,
+        },
+    },
+    {
+        path: "/report",
+        name: "report",
+        component: () =>
+            import(/* webpackChunkName: "app" */ "../views/pages/report.vue"),
+        meta: {
+            layout: "app",
+            isRequredAuth: true,
+        },
+    },
+    {
+        path: "/logout",
+        name: "logout",
+        component: () =>
+            import(
+                /* webpackChunkName: "app" */ "../views/pages/auth/logout.vue"
+            ),
+        meta: {
+            layout: "auth",
+            isRequredAuth: true,
+        },
     },
 
     {
-        path: '/login',
-        name: 'login',
-        component: () => import(/* webpackChunkName: "auth" */ '../views/pages/auth/login.vue'),
-        meta: { layout: 'auth', isRequredAuth: false },
+        path: "/login",
+        name: "login",
+        component: () =>
+            import(
+                /* webpackChunkName: "auth" */ "../views/pages/auth/login.vue"
+            ),
+        meta: { layout: "auth", isRequredAuth: false },
     },
 
     {
-        path: '/register',
-        name: 'register',
-        component: () => import(/* webpackChunkName: "auth" */ '../views/pages/auth/register.vue'),
-        meta: { layout: 'auth', isRequredAuth: false },
+        path: "/register",
+        name: "register",
+        component: () =>
+            import(
+                /* webpackChunkName: "auth" */ "../views/pages/auth/register.vue"
+            ),
+        meta: { layout: "auth", isRequredAuth: false },
     },
 
     {
-        path: '/:pathMatch(.*)*',
-        component: () => import(/* webpackChunkName: "auth" */ '../views/pages/error404.vue'),
-        meta: { layout: 'auth', isRequredAuth: false },
-    }
+        path: "/:pathMatch(.*)*",
+        component: () =>
+            import(
+                /* webpackChunkName: "auth" */ "../views/pages/error404.vue"
+            ),
+        meta: { layout: "auth", isRequredAuth: false },
+    },
 ];
-
 
 const router = new createRouter({
     history: createWebHistory(),
-    linkExactActiveClass: 'active',
-    routes
+    linkExactActiveClass: "active",
+    routes,
 });
 
 router.beforeEach((to, from) => {
@@ -90,10 +141,11 @@ router.beforeEach((to, from) => {
            return { name: 'login', query: { redirect: to.fullPath } }
        } */
 
-    if (to.meta && to.meta.layout && to.meta.layout == 'auth') { // (to.meta && to.meta.layout && to.meta.layout == 'auth')
-        setLayout('auth');
+    if (to.meta && to.meta.layout && to.meta.layout == "auth") {
+        // (to.meta && to.meta.layout && to.meta.layout == 'auth')
+        setLayout("auth");
     } else {
-        setLayout('app');
+        setLayout("app");
     }
 });
 

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 70);
             $table->integer('user_id');
-            $table->decimal('initial_balance', 8, 2);
+            $table->decimal('balance', 10, 2);
             $table->string('currency')->default('ARS');
             $table->string('description')->nullable();
             $table->string('color', 50);

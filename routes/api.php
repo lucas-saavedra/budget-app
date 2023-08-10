@@ -17,8 +17,8 @@ Route::group(["middleware" => ["auth:sanctum"]], function () {
     Route::get('profile', [UserController::class, 'profile']);
     Route::post('logout', [UserController::class, 'logout']);
     //accounts
-    Route::resource('accounts', AccountController::class);
-    Route::resource('categories', CategoryController::class);
-    Route::resource('transactions', TransactionController::class);
-    Route::resource('reports', ReportsController::class);
+    Route::apiResource('accounts', AccountController::class);
+    Route::apiResource('categories', CategoryController::class);
+    Route::apiResource('transactions', TransactionController::class);
+    Route::apiResource('reports', ReportsController::class);
 });

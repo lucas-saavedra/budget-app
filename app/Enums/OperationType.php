@@ -9,4 +9,5 @@ enum OperationType: string
     case expense = 'expense';
     case adjustment = 'adjustment';
     case transfer = 'transfer';
+    case balance = 'balance';
 }

@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from "vue";
 
 // by convention, composable function names start with "use"
 export function useConstants() {
@@ -57,6 +57,5 @@ export function useConstants() {
         { label: "Otros", name: "other", icon: "basil:other-1-outline" },
     ]);
 
-
-    return { colors, accountTypes }
+    return { colors, accountTypes };
 }
